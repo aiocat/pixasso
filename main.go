@@ -15,6 +15,22 @@
 
 package main
 
+import (
+	"log"
+	"os"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/joho/godotenv"
+)
+
 func main() {
-	println("Hello World")
+	godotenv.Load()    // Load .env file
+	app := fiber.New() // New fiber app
+
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Hello World")
+	})
+
+	// Listen port
+	log.Fatal(app.Listen(":" + os.Getenv("PORT")))
 }
