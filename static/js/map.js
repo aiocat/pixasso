@@ -14,27 +14,35 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Canvas section
-const drawPixel = (context, x, y, color) => {
-    if (color == 0) {
-        context.fillStyle = "#000"
-    }
-  	context.fillRect(x, y, 5, 5);
+const drawPixel = (context, x, y, c) => {
+    context.fillStyle = colors[c]
+    context.fillRect(x, y, 10, 10);
 }
 
 var canvas = document.getElementById("pixels")
 var ctx = canvas.getContext("2d")
+var color = 0
 
 canvas.addEventListener("mousedown", (e) => {
     const rect = canvas.getBoundingClientRect()
-    const x = Math.round((e.clientX - rect.left) / 5) * 5;
-    const y = Math.round((e.clientY - rect.top) / 5) * 5;
+    const x = Math.round((e.clientX - rect.left) / 10) * 10;
+    const y = Math.round((e.clientY - rect.top) / 10) * 10;
 
     websocket.send(JSON.stringify({
         "type": 1,
         "x": x,
         "y": y,
-        "color": 0
+        "color": color
     }))
+})
+
+canvas.addEventListener("mousemove", (e) => {
+    const rect = canvas.getBoundingClientRect()
+    const x = Math.round((e.clientX - rect.left) / 10) * 10;
+    const y = Math.round((e.clientY - rect.top) / 10) * 10;
+
+    document.getElementById("x-axis").innerHTML = `<strong>X:</strong> ${x}`
+    document.getElementById("y-axis").innerHTML = `<strong>Y:</strong> ${y}`
 })
 
 // Connect to websocket
@@ -64,9 +72,25 @@ websocket.onmessage = ({ data }) => {
 }
 
 // Load pixels
-(async() => {
+(async () => {
     let response = await fetch("/api/pixels")
     let respJson = await response.json()
 
+    if (!respJson) return
     respJson.forEach(data => drawPixel(ctx, data.x, data.y, data.color))
 })()
+
+// Load colors
+// black, gray, white, brown, red, orange, yellow, green, cyan, blue, purple, pink
+var colors = ["#000", "#777", "#FFF", "#964B00", "#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#00FFFF", "#0000FF", "#800080", "#FFC0CB"]
+
+colors.forEach((value, index) => {
+    let elem = document.createElement("span")
+    elem.style.background = value
+    elem.onclick = () => {
+        color = index
+        document.getElementById("color-status").style.background = value
+    }
+
+    document.getElementById("palette").append(elem)
+})

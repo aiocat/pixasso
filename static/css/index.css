@@ -31,6 +31,7 @@ h1 {
     color: #000;
     font-size: 48px;
     font-weight: 700;
+    padding: 10px;
 }
 
 .buttons {
@@ -68,6 +69,39 @@ h1 {
     transform: scale(1);
 }
 
-#pixels:hover {
-    cursor: crosshair;
+#palette {
+    width: 100%;
+    border: 2px solid #000;
+    box-sizing: border-box;
+    margin: 10px auto;
+    padding: 10px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#palette span {
+    width: 64px;
+    height: 64px;
+}
+
+.information p {
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 5px auto;
+}
+
+.information strong {
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+#color-status {
+    border: 1px solid #000;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
 }

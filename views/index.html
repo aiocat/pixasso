@@ -26,16 +26,34 @@
 </head>
 <body>
     <h1>L'anarchie de Picasso</h1>
+    <div class="information">
+        <p id="x-axis"><strong>X:</strong> 0</p>
+        <p id="y-axis"><strong>Y:</strong> 0</p>
+        <p><strong>Color:</strong> <span id="color-status"></span></p>
+    </div>
     <div class="buttons">
-        <a href="/signin">Sign In</a>
-        <a href="/signup">Sign Up</a>
         <a href="https://github.com/aiocat/pixasso">Source Code</a>
         <a href="https://github.com/aiocat">Credits</a>
     </div>
     <div class="pixel-container">
-        <canvas id="pixels" width="5000" height="5000"></canvas>
+        <canvas id="pixels" width="10000" height="10000"></canvas>
+    </div>
+    <div id="palette">
     </div>
 </body>
+<script>
+    if (!localStorage.getItem("token")) {
+        let signin = document.createElement("a")
+        signin.href = "/signin"
+        signin.innerText = "Sign In"
+
+        let signup = document.createElement("a")
+        signup.href = "/signup"
+        signup.innerText = "Sign Up"
+
+        document.getElementsByClassName("buttons")[0].append(signin, signup)
+    }
+</script>
 <script src="/js/map.js"></script>
 
 </html>

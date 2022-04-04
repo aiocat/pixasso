@@ -102,7 +102,7 @@ func WebSocket(c *websocket.Conn) {
 		foundUser.Decode(&user)
 
 		// Check if is in cooldown
-		if time.Now().Unix()-user.LastPixelAt < 30 {
+		if time.Now().Unix()-user.LastPixelAt < 1 {
 			// Write error message
 			if wsError = sock.WriteMessage(messageType, []byte("{\"error\":\"You are in cooldown\"}")); wsError != nil {
 				log.Println("Write error:", wsError)
@@ -112,14 +112,14 @@ func WebSocket(c *websocket.Conn) {
 		}
 
 		// Check if cords are true
-		if wsMessage.X%5 != 0 || wsMessage.Y%5 != 0 || wsMessage.X > 1000 || wsMessage.Y > 1000 {
+		if wsMessage.X%10 != 0 || wsMessage.Y%10 != 0 || wsMessage.X > 10000 || wsMessage.Y > 10000 {
 			// Write error message
 			if wsError = sock.WriteMessage(messageType, []byte("{\"error\":\"Invalid cords\"}")); wsError != nil {
 				log.Println("Write error:", wsError)
 				break
 			}
 			continue
-		} else if wsMessage.Color > 12 {
+		} else if wsMessage.Color > 11 {
 			// Write error message
 			if wsError = sock.WriteMessage(messageType, []byte("{\"error\":\"Invalid color\"}")); wsError != nil {
 				log.Println("Write error:", wsError)
