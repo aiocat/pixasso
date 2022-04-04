@@ -15,9 +15,8 @@
 
 var username = document.getElementById("username");
 var password = document.getElementById("password");
-var captcha = document.getElementById("captcha");
 
-document.getElementById("create").onclick = () => {
+document.getElementById("auth").onclick = async() => {
     if (username.value.length < 3) {
         document.getElementById("error").innerText = "Username is too short";
         return;
@@ -32,30 +31,23 @@ document.getElementById("create").onclick = () => {
         return;
     }
     
-    captcha.execute();
-};
-
-captcha.addEventListener("verified", async ({ token }) => {
-    let response = await fetch("/api/users", {
+    let response = await fetch("/api/users/auth", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            captcha: token,
             username: username.value,
             password: password.value,
         }),
     });
 
+    let responseJson = await response.json();
+
     if (response.ok) {
-        window.location.href = "/signin";
+        localStorage.setItem("token", responseJson.token)
+        window.location.href = "/";
     } else {
-        let responseJson = await response.json();
         document.getElementById("error").innerText = responseJson.message;
     }
-});
-
-captcha.addEventListener("error", ({ message }) => {
-    document.getElementById("error").innerText = message;
-});
+};

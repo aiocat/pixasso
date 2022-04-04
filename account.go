@@ -37,10 +37,34 @@ func HandlePostUser(c *fiber.Ctx) error {
 	}
 
 	// Create account
-	err = CreateAccount(user)
+	err = CreateAccount(&user)
 	if err != nil {
 		return c.Status(400).JSON(Error{err.Error()})
 	}
 
 	return c.SendStatus(204)
+}
+
+// Handle auth user route
+func HandleAuthUser(c *fiber.Ctx) error {
+	// Check content type
+	if c.Get("content-type", "") != "application/json" {
+		return c.Status(400).JSON(Error{"content must be application/json"})
+	}
+
+	// Parse body
+	user := User{}
+	err := json.Unmarshal(c.Body(), &user)
+
+	if err != nil {
+		return c.Status(400).JSON(Error{"invalid json type"})
+	}
+
+	// Auth account
+	token, err := AuthAccount(&user)
+	if err != nil {
+		return c.Status(400).JSON(Error{err.Error()})
+	}
+
+	return c.JSON(map[string]string{"token": token})
 }

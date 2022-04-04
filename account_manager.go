@@ -35,33 +35,56 @@ type User struct {
 }
 
 // Create new user account
-func CreateAccount(user User) error {
-	// Check user.Username and user.Password
-	if len(user.Username) < 3 || len(user.Username) > 24 || !alphaOnly(user.Username) {
+func CreateAccount(user *User) error {
+	// Check username and password
+	if len((*user).Username) < 3 || len((*user).Username) > 24 || !alphaOnly((*user).Username) {
 		return errors.New("bad username format")
-	} else if len(user.Password) < 8 || len(user.Password) > 72 {
+	} else if len((*user).Password) < 8 || len((*user).Password) > 72 {
 		return errors.New("bad password format")
-	} else if !captchaChecker(user.Captcha) {
+	} else if !captchaChecker((*user).Captcha) {
 		return errors.New("invalid captcha")
 	}
 
-	// Check user.Username exists
+	// Check username exists
 	users := DATABASE.GetCollection("users")
 
-	if users.FindOne(context.Background(), bson.M{"user.Username": user.Username}).Err() == nil {
+	if users.FindOne(context.Background(), bson.M{"username": (*user).Username}).Err() == nil {
 		return errors.New("username already exists")
 	}
 
 	// Prepare user
-	user.LastPixelAt = 0
-	user.Token = fmt.Sprintf("%x", sha1.Sum([]byte(user.Username+user.Password+user.Captcha))) // Set user token
+	(*user).LastPixelAt = 0
+	(*user).Token = fmt.Sprintf("%x", sha1.Sum([]byte(user.Username+user.Password+user.Captcha))) // Set user token
+	(*user).Password = fmt.Sprintf("%x", sha1.Sum([]byte(user.Password)))                         // Encrpyt user password
 
 	// Insert user
-	_, err := users.InsertOne(context.Background(), user)
+	_, err := users.InsertOne(context.Background(), *user)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	return nil
+}
+
+// Auth an account
+func AuthAccount(user *User) (string, error) {
+	// Check username and password
+	if len((*user).Username) < 3 || len((*user).Username) > 24 || !alphaOnly((*user).Username) {
+		return "", errors.New("bad username format")
+	} else if len((*user).Password) < 8 || len((*user).Password) > 72 {
+		return "", errors.New("bad password format")
+	}
+
+	// Get user
+	users := DATABASE.GetCollection("users")
+	user.Password = fmt.Sprintf("%x", sha1.Sum([]byte((*user).Password)))
+	result := users.FindOne(context.Background(), bson.M{"username": (*user).Username, "password": (*user).Password})
+
+	if result.Err() != nil {
+		return "", errors.New("user not found")
+	}
+
+	result.Decode(user)
+	return (*user).Token, nil
 }

@@ -59,7 +59,8 @@ func main() {
 	app.Static("/", "./static") // Set static folder
 
 	// Setup routes
-	app.Post("/users", HandlePostUser)
+	app.Post("/api/users", HandlePostUser)
+	app.Post("/api/users/auth", HandleAuthUser)
 	app.Get("/signin", func(c *fiber.Ctx) error { return c.SendFile("./views/signin.html") })
 	app.Get("/signup", func(c *fiber.Ctx) error { return c.SendFile("./views/signup.html") })
 

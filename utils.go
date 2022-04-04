@@ -25,7 +25,7 @@ import (
 
 // Simple error struct to send as JSON
 type Error struct {
-	Message string
+	Message string `json:"message"`
 }
 
 // Captcha result struct
