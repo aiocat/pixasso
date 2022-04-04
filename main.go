@@ -20,6 +20,7 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/websocket/v2"
 	"github.com/joho/godotenv"
 )
 
@@ -57,6 +58,18 @@ func main() {
 	app.Get("/signin", func(c *fiber.Ctx) error { return c.SendFile("./views/signin.html") })
 	app.Get("/signup", func(c *fiber.Ctx) error { return c.SendFile("./views/signup.html") })
 	app.Get("/", func(c *fiber.Ctx) error { return c.SendFile("./views/index.html") })
+
+	// Setup websocket routes
+	app.Use("/ws", func(c *fiber.Ctx) error {
+		// IsWebSocketUpgrade returns true if the client
+		// requested upgrade to the WebSocket protocol.
+		if websocket.IsWebSocketUpgrade(c) {
+			c.Locals("allowed", true)
+			return c.Next()
+		}
+		return fiber.ErrUpgradeRequired
+	})
+	app.Get("/ws/:token", websocket.New(WebSocket))
 
 	// Listen port
 	log.Fatal(app.Listen(":" + os.Getenv("PORT")))
