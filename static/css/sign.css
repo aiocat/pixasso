@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
 
 html,
 body {
@@ -24,11 +24,14 @@ body {
     align-items: center;
     justify-content: center;
     height: 100%;
-    font-family: 'Caveat', cursive;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
 }
 
 div {
     text-align: center;
+    width: 50%;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -41,13 +44,16 @@ input[type="text"],
 input[type="password"] {
     outline: none;
     padding: 5px;
-    width: 512px;
+    width: 100%;
     display: block;
     margin: 5px auto;
-    border: 1px solid #000;
+    border: none;
+    border-bottom: 1px solid #000;
     color: #000;
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 500;
+    font-family: 'Lato', sans-serif;
+    box-sizing: border-box;
 }
 
 button {
@@ -60,11 +66,24 @@ button {
     border: 1px solid #000;
     font-size: 24px;
     font-weight: 600;
-    font-family: 'Caveat', cursive;
+    font-family: 'Lato', sans-serif;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 p {
     color: red;
     font-size: 18px;
     font-weight: 600;
+}
+
+a {
+    color: rgb(20, 75, 255);
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }

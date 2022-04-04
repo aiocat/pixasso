@@ -17,26 +17,25 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/sign.css">
-    <script src="https://cdn.jsdelivr.net/npm/vanilla-hcaptcha"></script>
-    <title>Pixasso | Sign In</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <title>Pixasso</title>
 </head>
-
 <body>
-    <div>
-        <h1>Sign In</h1>
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <button id="auth">Login</button>
-        <a href="/signup">Don't Have an Account?</a>
-        <p id="error"></p>
+    <h1>L'anarchie de Picasso</h1>
+    <div class="buttons">
+        <a href="/signin">Sign In</a>
+        <a href="/signup">Sign Up</a>
+        <a href="https://github.com/aiocat/pixasso">Source Code</a>
+        <a href="https://github.com/aiocat">Credits</a>
+    </div>
+    <div class="pixel-container">
+        <canvas id="pixels" width="5000" height="5000"></canvas>
     </div>
 </body>
-<script src="/js/signin.js"></script>
+<script src="/js/map.js"></script>
 
 </html>

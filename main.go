@@ -20,7 +20,6 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/template/html"
 	"github.com/joho/godotenv"
 )
 
@@ -35,14 +34,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Set environment variables
-	HCAPTCHA_SECRET = os.Getenv("HCAPTCHA_SECRET")
-
-	engine := html.New("./views", ".html") // Set html engine
-
-	app := fiber.New(fiber.Config{
-		Views: engine,
-	}) // New fiber app
+	HCAPTCHA_SECRET = os.Getenv("HCAPTCHA_SECRET") // Set environment variables
+	app := fiber.New()                             // New fiber app
 
 	// Security check middleware
 	app.Use(func(c *fiber.Ctx) error {
@@ -63,6 +56,7 @@ func main() {
 	app.Post("/api/users/auth", HandleAuthUser)
 	app.Get("/signin", func(c *fiber.Ctx) error { return c.SendFile("./views/signin.html") })
 	app.Get("/signup", func(c *fiber.Ctx) error { return c.SendFile("./views/signup.html") })
+	app.Get("/", func(c *fiber.Ctx) error { return c.SendFile("./views/index.html") })
 
 	// Listen port
 	log.Fatal(app.Listen(":" + os.Getenv("PORT")))
