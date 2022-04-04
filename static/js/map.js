@@ -13,8 +13,11 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+// Canvas section
 const drawPixel = (context, x, y, color) => {
-    context.fillStyle = color || '#000';
+    if (color == 0) {
+        context.fillStyle = "#000"
+    }
   	context.fillRect(x, y, 5, 5);
 }
 
@@ -34,6 +37,7 @@ canvas.addEventListener("mousedown", (e) => {
     }))
 })
 
+// Connect to websocket
 var websocket = new WebSocket(`ws://127.0.0.1:3000/ws/${localStorage.getItem("token")}`)
 
 websocket.onclose = () => {
@@ -52,7 +56,17 @@ websocket.onopen = () => {
 websocket.onmessage = ({ data }) => {
     let dataAsJson = JSON.parse(data)
 
-    if (dataAsJson.color == 0) {
-        drawPixel(ctx, dataAsJson.x, dataAsJson.y, "#000")
+    if (dataAsJson.type == 1) {
+        drawPixel(ctx, dataAsJson.x, dataAsJson.y, dataAsJson.color)
+    } else if (dataAsJson.error) {
+        console.log(dataAsJson)
     }
 }
+
+// Load pixels
+(async() => {
+    let response = await fetch("/api/pixels")
+    let respJson = await response.json()
+
+    respJson.forEach(data => drawPixel(ctx, data.x, data.y, data.color))
+})()

@@ -38,7 +38,7 @@ type WebSocketMessage struct {
 	X     uint   `json:"x" bson:"x"`
 	Y     uint   `json:"y" bson:"y"`
 	Color uint8  `json:"color" bson:"color"`
-	From  string `json:"from" bson:"-"`
+	From  string `json:"from,omitempty" bson:"-"`
 }
 
 // Write a message to sock instance

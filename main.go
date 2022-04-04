@@ -55,6 +55,7 @@ func main() {
 	// Setup routes
 	app.Post("/api/users", HandlePostUser)
 	app.Post("/api/users/auth", HandleAuthUser)
+	app.Get("/api/pixels", HandlePixelApi)
 	app.Get("/signin", func(c *fiber.Ctx) error { return c.SendFile("./views/signin.html") })
 	app.Get("/signup", func(c *fiber.Ctx) error { return c.SendFile("./views/signup.html") })
 	app.Get("/", func(c *fiber.Ctx) error { return c.SendFile("./views/index.html") })
