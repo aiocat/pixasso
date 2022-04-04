@@ -112,7 +112,7 @@ func WebSocket(c *websocket.Conn) {
 		}
 
 		// Check if cords are true
-		if wsMessage.X%5 != 0 || wsMessage.Y%5 != 0 {
+		if wsMessage.X%5 != 0 || wsMessage.Y%5 != 0 || wsMessage.X > 1000 || wsMessage.Y > 1000 {
 			// Write error message
 			if wsError = sock.WriteMessage(messageType, []byte("{\"error\":\"Invalid cords\"}")); wsError != nil {
 				log.Println("Write error:", wsError)
