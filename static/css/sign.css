@@ -1,0 +1,70 @@
+/**
+ * Copyright (C) 2022 aiocat
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
+
+html,
+body {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-family: 'Caveat', cursive;
+}
+
+div {
+    text-align: center;
+}
+
+h1 {
+    color: #000;
+    font-size: 48px;
+    font-weight: 700;
+}
+
+input[type="text"],
+input[type="password"] {
+    outline: none;
+    padding: 5px;
+    width: 512px;
+    display: block;
+    margin: 5px auto;
+    border: 1px solid #000;
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+button {
+    display: block;
+    outline: none;
+    padding: 5px;
+    margin: 5px auto;
+    color: #fff;
+    background: #000;
+    border: 1px solid #000;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: 'Caveat', cursive;
+}
+
+p {
+    color: red;
+    font-size: 18px;
+    font-weight: 600;
+}

@@ -1,0 +1,43 @@
+<!--
+ Copyright (C) 2022 aiocat
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
+ 
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/sign.css">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-hcaptcha"></script>
+    <title>Pixasso | Sign Up</title>
+</head>
+
+<body>
+    <div>
+        <h1>Sign Up</h1>
+        <input type="text" id="username" placeholder="Username (3-24 only alphabetic)">
+        <input type="password" id="password" placeholder="Password (8-72)">
+        <h-captcha id="captcha" site-key="b8842b49-633e-4f11-add6-24edb8d0ce65" size="invisible" tabindex="0">
+        </h-captcha>
+        <button id="create">Create</button>
+        <p id="error"></p>
+    </div>
+</body>
+<script src="/js/signup.js"></script>
+
+</html>

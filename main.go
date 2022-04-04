@@ -20,16 +20,48 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/template/html"
 	"github.com/joho/godotenv"
 )
 
-func main() {
-	godotenv.Load()    // Load .env file
-	app := fiber.New() // New fiber app
+var HCAPTCHA_SECRET string // Hcaptcha secret key variable
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello World")
+func main() {
+	godotenv.Load() // Load .env file
+
+	// Start database connection
+	err := DATABASE.StartConnection(os.Getenv("MONGO_URL"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Set environment variables
+	HCAPTCHA_SECRET = os.Getenv("HCAPTCHA_SECRET")
+
+	engine := html.New("./views", ".html") // Set html engine
+
+	app := fiber.New(fiber.Config{
+		Views: engine,
+	}) // New fiber app
+
+	// Security check middleware
+	app.Use(func(c *fiber.Ctx) error {
+		c.Set("X-XSS-Protection", "1; mode=block")
+		c.Set("X-Content-Type-Options", "nosniff")
+		c.Set("X-Download-Options", "noopen")
+		c.Set("Strict-Transport-Security", "max-age=5184000")
+		c.Set("X-Frame-Options", "SAMEORIGIN")
+		c.Set("X-DNS-Prefetch-Control", "off")
+
+		return c.Next()
 	})
+
+	app.Static("/", "./static") // Set static folder
+
+	// Setup routes
+	app.Post("/users", HandlePostUser)
+	app.Get("/signin", func(c *fiber.Ctx) error { return c.SendFile("./views/signin.html") })
+	app.Get("/signup", func(c *fiber.Ctx) error { return c.SendFile("./views/signup.html") })
 
 	// Listen port
 	log.Fatal(app.Listen(":" + os.Getenv("PORT")))
