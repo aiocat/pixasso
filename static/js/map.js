@@ -24,9 +24,11 @@ var ctx = canvas.getContext("2d")
 var color = 0
 
 canvas.addEventListener("mousedown", (e) => {
+    if (e.button != 0) return;
+
     const rect = canvas.getBoundingClientRect()
-    const x = Math.round((e.clientX - rect.left) / 10) * 10;
-    const y = Math.round((e.clientY - rect.top) / 10) * 10;
+    const x = (Math.ceil((e.clientX - rect.left) / 10) * 10) - 10;
+    const y = (Math.ceil((e.clientY - rect.top) / 10) * 10) - 10;
 
     websocket.send(JSON.stringify({
         "type": 1,
@@ -38,8 +40,8 @@ canvas.addEventListener("mousedown", (e) => {
 
 canvas.addEventListener("mousemove", (e) => {
     const rect = canvas.getBoundingClientRect()
-    const x = Math.round((e.clientX - rect.left) / 10) * 10;
-    const y = Math.round((e.clientY - rect.top) / 10) * 10;
+    const x = (Math.ceil((e.clientX - rect.left) / 10) * 10) - 10;
+    const y = (Math.ceil((e.clientY - rect.top) / 10) * 10) - 10;
 
     document.getElementById("x-axis").innerHTML = `<strong>X:</strong> ${x}`
     document.getElementById("y-axis").innerHTML = `<strong>Y:</strong> ${y}`
@@ -94,3 +96,22 @@ colors.forEach((value, index) => {
 
     document.getElementById("palette").append(elem)
 })
+
+// Load pixel slices
+// Y 
+for (let i = 0; i < 10000; i += 10) {
+    ctx.beginPath()
+    ctx.lineWidth = 0.1
+    ctx.moveTo(i, 0)
+    ctx.lineTo(i, 10000)
+    ctx.stroke()
+}
+
+// X
+for (let i = 0; i < 10000; i += 10) {
+    ctx.beginPath()
+    ctx.lineWidth = 0.1
+    ctx.moveTo(0, i)
+    ctx.lineTo(10000, i)
+    ctx.stroke()
+}

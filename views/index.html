@@ -17,6 +17,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,6 +25,7 @@
     <link rel="stylesheet" href="/css/index.css">
     <title>Pixasso</title>
 </head>
+
 <body>
     <h1>L'anarchie de Picasso</h1>
     <div class="information">
@@ -40,6 +42,7 @@
     </div>
     <div id="palette">
     </div>
+    <p id="desc">Login to your account and join us!</p>
 </body>
 <script>
     if (!localStorage.getItem("token")) {
@@ -52,8 +55,17 @@
         signup.innerText = "Sign Up"
 
         document.getElementsByClassName("buttons")[0].append(signin, signup)
+
+        document.getElementsByClassName("information")[0].remove()
+        document.getElementsByClassName("pixel-container")[0].remove()
+        document.getElementById("palette").remove()
+        document.getElementById("desc").style.display = "block"
+    } else {
+        let loadScript = document.createElement("script")
+        loadScript.src = "/js/map.js"
+
+        document.body.append(loadScript)
     }
 </script>
-<script src="/js/map.js"></script>
 
 </html>
