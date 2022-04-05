@@ -26,16 +26,10 @@
 
     <meta content="website" property="og:type" />
     <meta content="Pixasso" property="og:title" />
-    <meta
-      content="Anarchic pixel art site"
-      property="og:description"
-    />
+    <meta content="Anarchic pixel art site" property="og:description" />
     <meta content="pixasso" property="og:site_name" />
     <meta content="/img/pixasso.png" property="og:image" />
-    <meta
-      name="description"
-      content="Anarchic pixel art site"
-    />
+    <meta name="description" content="Anarchic pixel art site" />
     <meta name="robots" content="index, follow" />
     <meta name="keywords" content="pixasso,aiocat,r/place,place,pixel,art,picasso" />
     <meta name="title" content="Pixasso" />
@@ -56,12 +50,13 @@
         <a href="https://github.com/aiocat/pixasso">Source Code</a>
         <a href="https://github.com/aiocat">Credits</a>
     </div>
+    <div id="palette">
+    </div>
     <div class="pixel-container">
         <canvas id="pixels" width="2000" height="2000"></canvas>
     </div>
-    <div id="palette">
-    </div>
     <p id="desc">Login to your account and join us!</p>
+    <div id="notification-stack"></div>
 </body>
 <script>
     if (!localStorage.getItem("token")) {

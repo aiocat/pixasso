@@ -22,9 +22,10 @@ const drawPixel = (context, x, y, c) => {
 var canvas = document.getElementById("pixels")
 var ctx = canvas.getContext("2d")
 var color = 0
+var clickDisabled = false
 
 canvas.addEventListener("mousedown", (e) => {
-    if (e.button != 0) return;
+    if (e.button != 0 || clickDisabled) return;
 
     const rect = canvas.getBoundingClientRect()
     const x = (Math.ceil((e.clientX - rect.left) / 10) * 10) - 10;
@@ -36,6 +37,14 @@ canvas.addEventListener("mousedown", (e) => {
         "y": y,
         "color": color
     }))
+
+    canvas.style.cursor = "not-allowed"
+    clickDisabled = true
+
+    setTimeout(() => {
+        canvas.style.cursor = "crosshair"
+        clickDisabled = false
+    }, 2000)
 })
 
 canvas.addEventListener("mousemove", (e) => {
@@ -48,7 +57,7 @@ canvas.addEventListener("mousemove", (e) => {
 })
 
 // Connect to websocket
-var websocket = new WebSocket(`wss://pixasso-app.herokuapp.com/ws/${localStorage.getItem("token")}`)
+var websocket = new WebSocket(`ws://127.0.0.1:3000/ws/${localStorage.getItem("token")}`)
 
 websocket.onclose = () => {
     console.log("Closed")
@@ -71,19 +80,10 @@ websocket.onmessage = ({ data }) => {
     } else if (dataAsJson.error) {
         let notification = document.createElement("div")
         notification.className = "notification"
+        notification.innerText = dataAsJson.error
 
-        let notificationTitle = document.createElement("h1")
-        notificationTitle.innerText = "Oops..."
-
-        let notificationError = document.createElement("p")
-        notificationError.innerText = dataAsJson.error
-
-        let notificationButton = document.createElement("button")
-        notificationButton.innerText = "Close"
-        notificationButton.onclick = () => notification.remove()
-
-        notification.append(notificationTitle, notificationError, notificationButton)
-        document.body.append(notification)
+        document.getElementById("notification-stack").appendChild(notification)
+        setTimeout(() => notification.remove(), 5000)
     }
 }
 
@@ -99,6 +99,8 @@ websocket.onmessage = ({ data }) => {
 // Load colors
 // black, gray, white, brown, red, orange, yellow, green, cyan, blue, purple, pink
 var colors = ["#000", "#777", "#FFF", "#964B00", "#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#00FFFF", "#0000FF", "#800080", "#FFC0CB"]
+
+document.getElementById("color-status").style.background = "#000"
 
 colors.forEach((value, index) => {
     let elem = document.createElement("span")

@@ -15,11 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
 
 html,
 body {
-    color: #fff;
+    background: rgb(5, 9, 20);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,25 +35,26 @@ div {
 }
 
 h1 {
-    color: #000;
+    color: #2054ff;
     font-size: 48px;
     font-weight: 700;
 }
 
 input[type="text"],
 input[type="password"] {
+    background: rgb(12, 18, 37);
     outline: none;
-    padding: 5px;
+    padding: 10px;
     width: 100%;
     display: block;
-    margin: 5px auto;
+    margin: 10px auto;
     border: none;
-    border-bottom: 1px solid #000;
-    color: #000;
+    color: rgb(219, 224, 245);
     font-size: 18px;
     font-weight: 500;
     font-family: 'Lato', sans-serif;
     box-sizing: border-box;
+    border-radius: 10px;
 }
 
 button {
@@ -61,24 +62,31 @@ button {
     outline: none;
     padding: 5px;
     margin: 5px auto;
-    color: #fff;
-    background: #000;
-    border: 1px solid #000;
+    color: rgb(12, 18, 37);
+    background: #2054ff;
+    border: 2px solid #2054ff;
     font-size: 24px;
     font-weight: 600;
     font-family: 'Lato', sans-serif;
     width: 100%;
     box-sizing: border-box;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    color: #2054ff;
+    background: rgb(5, 9, 20);
 }
 
 p {
-    color: red;
+    color: rgb(255, 49, 49);
     font-size: 18px;
     font-weight: 600;
 }
 
 a {
-    color: rgb(20, 75, 255);
+    color: rgb(199, 236, 253);
     font-size: 16px;
     font-weight: 500;
     text-decoration: none;
@@ -86,4 +94,28 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+@media only screen and (max-width: 302px) {
+    div {
+        width: 90%;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    button {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    a {
+        font-size: 14px;
+    }
 }
