@@ -48,7 +48,7 @@ canvas.addEventListener("mousemove", (e) => {
 })
 
 // Connect to websocket
-var websocket = new WebSocket(`ws://127.0.0.1:3000/ws/${localStorage.getItem("token")}`)
+var websocket = new WebSocket(`wss://pixasso-app.herokuapp.com/ws/${localStorage.getItem("token")}`)
 
 websocket.onclose = () => {
     console.log("Closed")
