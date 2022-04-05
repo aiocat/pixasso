@@ -102,7 +102,7 @@ func WebSocket(c *websocket.Conn) {
 		foundUser.Decode(&user)
 
 		// Check if is in cooldown
-		if time.Now().Unix()-user.LastPixelAt < 1 {
+		if time.Now().Unix()-user.LastPixelAt < 30 {
 			// Write error message
 			if wsError = sock.WriteMessage(messageType, []byte("{\"error\":\"You are in cooldown\"}")); wsError != nil {
 				log.Println("Write error:", wsError)

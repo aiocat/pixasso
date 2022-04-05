@@ -15,11 +15,49 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
+<div align="center">
+
+![Logo](/static/img/pixasso.png)
 # Pixasso
 Anarchic pixel art site with only one rule.
 
-## Rule (1)
-You can insert only one pixel in 5 minute.
+</div>
+
+## Rule
+You can insert only one pixel in 30 second.
+
+## Technologies
+
+- **Programming Language**: Go
+- **Database**: MongoDB
+- **Server**: Gofiber
+- **Captcha Service**: HCaptcha
+- **Front-end**: HTML, CSS & JS
+- **Hosting**: Heroku
+
+## Hosting
+
+Create a `.env` file and add these key-values:
+
+- **MONGO_URL**: MongoDB database connection url.
+- **HCAPTCHA_SECRET**: HCaptcha secret key.
+- **PORT**: Port to serve.
+
+Install Go programming language and run with: `go run .`
+
+View demo here: https://pixasso-app.herokuapp.com
+
+## Routes
+
+- `GET /`
+- `GET /signin`
+- `GET /signup`
+- `POST /api/users`
+- `POST /api/users/auth`
+- `GET /api/pixels`
+- `WEBSOCKET /ws/:token`
 
 ## License
-This project is licensed with AGPLv3 license. For more information, check `LICENSE` file.
+Pixasso is distributed under AGPLv3 license. for more information:
+
+- https://raw.githubusercontent.com/aiocat/pixasso/main/LICENSE
