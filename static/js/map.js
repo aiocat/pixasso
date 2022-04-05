@@ -69,7 +69,21 @@ websocket.onmessage = ({ data }) => {
     if (dataAsJson.type == 1) {
         drawPixel(ctx, dataAsJson.x, dataAsJson.y, dataAsJson.color)
     } else if (dataAsJson.error) {
-        console.log(dataAsJson)
+        let notification = document.createElement("div")
+        notification.className = "notification"
+
+        let notificationTitle = document.createElement("h1")
+        notificationTitle.innerText = "Oops..."
+
+        let notificationError = document.createElement("p")
+        notificationError.innerText = dataAsJson.error
+
+        let notificationButton = document.createElement("button")
+        notificationButton.innerText = "Close"
+        notificationButton.onclick = () => notification.remove()
+
+        notification.append(notificationTitle, notificationError, notificationButton)
+        document.body.append(notification)
     }
 }
 
