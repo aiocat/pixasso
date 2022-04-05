@@ -24,7 +24,7 @@ Anarchic pixel art site with only one rule.
 </div>
 
 ## Rule
-You can insert only one pixel in 30 second.
+You can insert only one pixel in 2 second.
 
 ## Technologies
 
