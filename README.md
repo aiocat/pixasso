@@ -23,6 +23,9 @@ Anarchic pixel art site with only one rule.
 
 </div>
 
+## Note
+This website is work in progress, which means it's still not finished.
+
 ## Rule
 You can insert only one pixel in 2 second.
 
