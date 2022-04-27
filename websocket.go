@@ -119,7 +119,7 @@ func WebSocket(c *websocket.Conn) {
 				break
 			}
 			continue
-		} else if wsMessage.Color > 11 {
+		} else if wsMessage.Color > 14 {
 			// Write error message
 			if wsError = sock.WriteMessage(messageType, []byte("{\"error\":\"Invalid color\"}")); wsError != nil {
 				log.Println("Write error:", wsError)

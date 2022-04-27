@@ -97,8 +97,9 @@ websocket.onmessage = ({ data }) => {
 })()
 
 // Load colors
-// black, gray, white, brown, red, orange, yellow, green, cyan, blue, purple, pink
-var colors = ["#000", "#777", "#FFF", "#964B00", "#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#00FFFF", "#0000FF", "#800080", "#FFC0CB"]
+// black, gray, white, brown, red, orange, yellow, green, cyan, blue, purple, pink ...
+// dark green, dark blue, dark red
+var colors = ["#000", "#777", "#FFF", "#964B00", "#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#00FFFF", "#0000FF", "#800080", "#FFC0CB", "#006400", "#00008B", "#8B0000"]
 
 document.getElementById("color-status").style.background = "#000"
 
